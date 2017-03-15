@@ -2,10 +2,10 @@ This is preliminary documentation for an early version of a script to recognize 
 Author: Alejandro Schaffer
 
 Current Location of files:
-/panfs/pan1.be-md.ncbi.nlm.nih.gov/dnaorg/2015.09/16S/round9
+/panfs/pan1.be-md.ncbi.nlm.nih.gov/dnaorg/2015.09/16S/16S_sensor
 
 Sample run:
-./script_v4 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40
+./16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40
 
 The first argument is a lower bound on length.
 The second argument is an upper bound on length.
