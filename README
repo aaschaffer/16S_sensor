@@ -5,7 +5,7 @@ Current Location of files:
 /panfs/pan1.be-md.ncbi.nlm.nih.gov/dnaorg/2015.09/16S/round9
 
 Sample run:
-./16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40
+./script_v4 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40
 
 The first argument is a lower bound on length.
 The second argument is an upper bound on length.
@@ -71,13 +71,18 @@ no
 partial
 imperfect_match
 
-The distinction between yes and partial is questionable since most of the
+The distinction between "yes" and "partial" is implemented as follows.
+A query sequence with a high quality match to the database of established sequences is
+classified as "yes" if the extent of the alignment spans 900 to 1800 nucleotides, and
+is classified as "partial" otherwise. The reason for these hard-coded thresholds is that
+almost all type strain 16S RNAs have lengths in the range [900,1800].   
+The distinction between "yes" and "partial" is questionable since most of the
 sequences in the 16S RNA database are themselves known to be partial and
 annotated as such.
 
-imperfect_match means that there is match to the 16S database but either its identity
+"imperfect_match" means that there is match to the 16S database but either its identity
 percentage is below threshold or its E-value is above threshold (for the best match), while
-no means that there is not a significant match at all. 
+"no" means that there is not a significant match at all. 
 
 In column 3, plus means same strand and minus means opposite strand, and mixed means at least one
              one alignment on each strand
