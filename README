@@ -1,0 +1,87 @@
+This is preliminary documentation for an early version of a script to recognize 16S RNA sequences.
+Author: Alejandro Schaffer
+
+Current Location of files:
+/panfs/pan1.be-md.ncbi.nlm.nih.gov/dnaorg/2015.09/16S/round9
+
+Sample run:
+./16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40
+
+The first argument is a lower bound on length.
+The second argument is an upper bound on length.
+The third argument is a set of input queries in FASTA format; it is assumed that
+the first token after the > on the defline identifies the query and that
+all query identifiers in the file are distinct.
+The fourth argument is the output file.
+The fifth argument is a lower bound on the identity percentage.
+The sixth argument is an upper bound of the E-value
+
+The two bounds on the right are applied in a logical AND fashion, so we look for
+matches that are above the identity percentage threshold and below the E-value threshold
+The bounds 80 and 1e-40 worked well on several tests.
+In contrast, we did not find a general setting of the
+length lower and upper bounds that works well on all tests. This
+is because different experiments to collect 16S sequences use
+different primer pairs that naturally lead to different expected lengths.
+The bounds shown of 400 and 2500 worked well on a heterogeneous (not from a single
+laboratory) set of 16S sequences from GenBank's nr database. In the context
+of submissions, however, one would typically expect that
+a) the lengths are homogeneous
+and
+b) the submitter should be able to specify what range of lengths is expected.
+Therefore, when this software is used in the context of submissions, we recommend
+to set the length parameters based on advice from the submitter, rather than by guessing
+or by having a default setting.
+
+Files needed:
+This file:
+README.16S.20170306.txt
+
+BLAST database:
+centroids90.nhr
+centroids90.nin
+centroids90.nsq
+
+Programs used by the script:
+classification_v3.pl
+partition_by_length_v2.pl
+
+Sample input
+nucl_queries.fsa
+
+The current script:
+script_v4
+
+The output has one row per query.
+Column 1 is the query identifier.
+Column 2 is the classification.
+Column 3 is the strand of the sequence relative to the strand of the matching database 16S sequence, or NA if there is no match.
+Column 4 is the number of local alignments between the sequence and the best matching database 16S sequence, or NA if there is no match.
+
+
+All queries shorter than lower length threshold are classified as too short, although using the example lower
+threshold of 400, they could be partial 16S RNA sequences.
+
+All queries longer than the upper length threshold are classified as too long, although in reality they
+could be genomic sequences that include a 16S RNA sequence somewhere inside.
+
+All sequences with length between the two thresholds are classified as one of:
+yes
+no
+partial
+imperfect_match
+
+The distinction between yes and partial is questionable since most of the
+sequences in the 16S RNA database are themselves known to be partial and
+annotated as such.
+
+imperfect_match means that there is match to the 16S database but either its identity
+percentage is below threshold or its E-value is above threshold (for the best match), while
+no means that there is not a significant match at all. 
+
+In column 3, plus means same strand and minus means opposite strand, and mixed means at least one
+             one alignment on each strand
+
+In column 4, values > 1 might be evidence of a missassembly or gap in the query sequence.
+
+If column 2 has the value no, then the values in column 3 and column 4 will appear as NA (short, for not applicable).
