@@ -35,7 +35,7 @@ or by having a default setting.
 
 Files needed:
 This file:
-README.16S.20170306.txt
+README
 
 BLAST database:
 centroids90.nhr
@@ -50,13 +50,14 @@ Sample input
 nucl_queries.fsa
 
 The current script:
-script_v4
+16S_sensor_script
 
 The output has one row per query.
 Column 1 is the query identifier.
 Column 2 is the classification.
 Column 3 is the strand of the sequence relative to the strand of the matching database 16S sequence, or NA if there is no match.
 Column 4 is the number of local alignments between the sequence and the best matching database 16S sequence, or NA if there is no match.
+Column 5 is the query coverage percentage of the best alignment between sequence and the best matching database 16S sequence, or NA if there is no match.
 
 
 All queries shorter than lower length threshold are classified as too short, although using the example lower
@@ -68,17 +69,7 @@ could be genomic sequences that include a 16S RNA sequence somewhere inside.
 All sequences with length between the two thresholds are classified as one of:
 yes
 no
-partial
 imperfect_match
-
-The distinction between "yes" and "partial" is implemented as follows.
-A query sequence with a high quality match to the database of established sequences is
-classified as "yes" if the extent of the alignment spans 900 to 1800 nucleotides, and
-is classified as "partial" otherwise. The reason for these hard-coded thresholds is that
-almost all type strain 16S RNAs have lengths in the range [900,1800].   
-The distinction between "yes" and "partial" is questionable since most of the
-sequences in the 16S RNA database are themselves known to be partial and
-annotated as such.
 
 "imperfect_match" means that there is match to the 16S database but either its identity
 percentage is below threshold or its E-value is above threshold (for the best match), while

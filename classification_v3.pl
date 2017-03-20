@@ -21,6 +21,8 @@ my @query_strand_match; #array of + or - indicating whether best match, if any i
 my @query_num_alignments_best_match; #array indicating the number of local alignments to the best match  (> 1 is anomalous)
 my @query_lengths; #array of query lengths;
 my %query_indices; #hash mapping names to indices;
+my $float_coverage; #query coverage in the best alignment to a query as a number between 0 and 1
+my @int_coverage; #array of query coverages in the best alignment to a query as an integer between 0 and 100
 my $num_queries;
 my $query_index;
 my $nextline;
@@ -34,6 +36,8 @@ my $QUERY_COLUMN = 0;
 my $E_COLUMN = 10;
 my $IDENTITY_COLUMN = 2;
 my $QLENGTH_COLUMN = 3;
+my $QUERY_START_COLUMN = 6;
+my $QUERY_END_COLUMN = 7;
 my $SUBJECT_START_COLUMN = 8;
 my $SUBJECT_END_COLUMN = 9;
 
@@ -49,9 +53,9 @@ my $upper_length = 1800;
 my $identity_threshold;
 
 my @output_strings;
-$output_strings[0] = "too long\tNA\tNA";
-$output_strings[1] = "too short\tNA\tNA";
-$output_strings[2] = "no\tNA\tNA";
+$output_strings[0] = "too long\tNA\tNA\tNA";
+$output_strings[1] = "too short\tNA\tNA\tNA";
+$output_strings[2] = "no\tNA\tNA\tNA";
 $output_strings[3] = "yes\t";
 $output_strings[4] = "partial\t";
 $output_strings[5] = "imperfect_match\t";
@@ -102,10 +106,12 @@ while(defined($nextline = <BLAST_INPUT>)) {
 	     ($fields[$E_COLUMN] < $match_E_threshold)) &&
 	    ($fields[$IDENTITY_COLUMN] > $identity_threshold)) {
 	    $query_classifications[$this_index] = $FULL_MATCH;
-	    if (($fields[$QLENGTH_COLUMN] < $lower_length) ||
-		($fields[$QLENGTH_COLUMN] > $upper_length)) {
-		$query_classifications[$this_index] = $PARTIAL;
-	    }
+	    $float_coverage = ($fields[$QUERY_END_COLUMN] - $fields[$QUERY_START_COLUMN])/$query_lengths[$this_index];
+	    $int_coverage[$this_index] = int((100 * $float_coverage)+0.5);
+#	    if (($fields[$QLENGTH_COLUMN] < $lower_length) ||
+#		($fields[$QLENGTH_COLUMN] > $upper_length)) {
+#		$query_classifications[$this_index] = $PARTIAL;
+#	    }
 	}
 	else {
 	    if (!($query_classifications[$this_index] eq $FULL_MATCH) &&
@@ -141,7 +147,12 @@ for($query_index = 0; $query_index < $num_queries; $query_index++) {
     print OUTPUT "\t";
     print OUTPUT $output_strings[$query_classifications[$query_index]+2];
     if ($query_classifications[$query_index] > 0) {
-	print OUTPUT "$query_strand_match[$query_index]\t$query_num_alignments_best_match[$query_index]";
+	if (defined($int_coverage[$query_index])) { 
+	    print OUTPUT "$query_strand_match[$query_index]\t$query_num_alignments_best_match[$query_index]\t$int_coverage[$query_index]";
+	}
+	else {
+	    print OUTPUT "$query_strand_match[$query_index]\t$query_num_alignments_best_match[$query_index]\tNA";
+	}
     }
     print OUTPUT "\n";
 }
