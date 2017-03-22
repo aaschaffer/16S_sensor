@@ -115,8 +115,10 @@ while(defined($nextline = <BLAST_INPUT>)) {
 	}
 	else {
 	    if (!($query_classifications[$this_index] eq $FULL_MATCH) &&
-		!($query_classifications[$this_index] eq $PARTIAL)) {
+		!($query_classifications[$this_index] eq $PARTIAL) && !($query_classifications[$this_index] eq $IMPERFECT)) {
 		$query_classifications[$this_index] = $IMPERFECT;
+		$float_coverage = ($fields[$QUERY_END_COLUMN] - $fields[$QUERY_START_COLUMN])/$query_lengths[$this_index];
+		$int_coverage[$this_index] = int((100 * $float_coverage)+0.5);
 	    }
 	}
 	if ($fields[$SUBJECT_START_COLUMN] < $fields[$SUBJECT_END_COLUMN]) {
