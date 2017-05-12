@@ -1,4 +1,18 @@
-./partition_by_length_v2.pl $3  middle_queries.fsa outlier_queries.fsa length_summary1.txt $1 $2
-blastn -db centroids90 -task blastn -query middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > middle_out_centroids9\
-0_blastn_fmt6.txt
-./classification_v3.pl length_summary1.txt middle_out_centroids90_blastn_fmt6.txt $4 $5 $6
+# make sure correct number of cmdline arguments were used, exit if not
+if [ "$#" -ne 7 ]; then
+  echo "Usage: $0 <min_length> <max_length> <seq_file> <output_file_name> <min_id_percentage> <max_Evalue> <output_dir>" 
+  exit 1
+fi
+# if we get here, correct number of cmdline arguments were used
+# make sure the output directory does not already exist, if so exit 
+if [ -d $7 ]; then
+   echo "Output directory $7 already exists. Remove it and rerun."
+   exit 1
+fi
+# if we get here, output directory does not already exist
+# make the directory, then do the work
+mkdir $7
+./partition_by_length_v2.pl $3  $7/middle_queries.fsa $7/outlier_queries.fsa $7/length_summary1.txt $1 $2
+blastn -db centroids90 -task blastn -query $7/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > $7/middle_out_centroids90_blastn_fmt6.txt
+./classification_v3.pl $7/length_summary1.txt $7/middle_out_centroids90_blastn_fmt6.txt $7/$4 $5 $6
+echo "Final output saved as $7/$4"
