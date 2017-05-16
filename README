@@ -7,7 +7,7 @@ or
 https://github.com/aaschaffer/16S_sensor
 
 Sample run:
-./16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40 sensor-out
+./16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40 1 sensor-out
 
 The first argument is a lower bound on length.
 The second argument is an upper bound on length.
@@ -17,7 +17,8 @@ all query identifiers in the file are distinct.
 The fourth argument is the output file.
 The fifth argument is a lower bound on the identity percentage.
 The sixth argument is an upper bound of the E-value
-The seventh argument is the name of a directory to put output files into.
+The seventh argument is the number of threads to run blast with
+The eigth argument is the name of a directory to put output files into.
 
 The two bounds on the right are applied in a logical AND fashion, so we look for
 matches that are above the identity percentage threshold and below the E-value threshold
