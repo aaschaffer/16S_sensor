@@ -20,7 +20,7 @@ my $this_length; #length of one sequence
 my $lower_bound; #lower bound on lengths in the middle range
 my $upper_bound; #upper bound on lengths in the middle range
 my $query_name; #identifier for one query
- 
+my $line_ctr; #counter of lines in sequence file 
 
 my @length_array; #array of sequence lengths
 my $sequence_index; #index on sequences;
@@ -54,14 +54,18 @@ open(OUTPUT_SUMMARY, ">$output_summary_file") or die "Cannot open 4 $output_summ
 
 $sequence_index  = 0;
 $total_length = 0;
+$line_ctr = 0;
 while(defined($nextline = <INPUT>)) {
     chomp($nextline);
+    $line_ctr++;
     if (($nextline =~m/^>/)) {
-	if ($total_length > 0) {
+#	if ($total_length > 0) { # EPN: previously this line checked that $total_length > 0, 
+#                                # but that meant that length 0 sequences had no output line in the OUTPUT_SUMMARY file, now they do
+      if($line_ctr > 1) { 
 	    $length_array[$sequence_index] = $total_length;
 	    $sequence_index++;
-	}
-	$total_length = 0;
+      }
+      $total_length = 0;
     }
     else {
 	$this_length = length($nextline);
