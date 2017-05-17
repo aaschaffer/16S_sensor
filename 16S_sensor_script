@@ -20,8 +20,7 @@ mkdir $8
 
 sensor_partition_by_length.pl $3  $8/middle_queries.fsa $8/outlier_queries.fsa $8/length_summary1.txt $1 $2
 
-blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart 
-send evalue bitscore" -max_target_seqs 1  > $8/middle_out_centroids90_blastn_fmt6.txt
+blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > $8/middle_out_centroids90_blastn_fmt6.txt
 
 sensor_classification.pl $8/length_summary1.txt $8/middle_out_centroids90_blastn_fmt6.txt $8/$4 $5 $6
 

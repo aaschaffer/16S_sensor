@@ -5,7 +5,7 @@
 # Code to partition a fasta file into two fasta files
 # depending on whether the length of the sequence is within a
 # prescribed range or not
-# Usage: partition_by_length.pl <input fasta file>  <output file in range> <output file out of range> <output_summary> <lower bound> <upper bound>
+# Usage: sensor_partition_by_length.pl <input fasta file>  <output file in range> <output file out of range> <output_summary> <lower bound> <upper bound>
 
 use strict;
 use warnings;
@@ -32,7 +32,7 @@ my $NO_MATCH = 0;
 my $FULL_MATCH = 1;
 my $PARTIAL = 2;
 
-my $usage = "partition_by_length.pl <input fasta file>  <output file in range> <output file out of range> <output_summary><lower bound> <upper bound>\n";
+my $usage = "sensor_partition_by_length.pl <input fasta file>  <output file in range> <output file out of range> <output_summary><lower bound> <upper bound>\n";
 
 $input_file = $ARGV[0];
 $middle_output_file = $ARGV[1];
