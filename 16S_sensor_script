@@ -1,4 +1,8 @@
 #!/bin/bash
+# next line (set -e) makes it so that this script exits with non-zero status if any of the commands within it
+# (e.g. the blastn command) fail with non-zero status.
+set -e 
+
 # make sure correct number of cmdline arguments were used, exit if not
 if [ "$#" -ne 8 ]; then
   echo "Usage: $0 <min_length> <max_length> <seq_file> <output_file_name> <min_id_percentage> <max_Evalue> <nprocessors> <output_dir>" 
