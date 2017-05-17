@@ -13,9 +13,13 @@ fi
 # if we get here, output directory does not already exist
 # make the directory, then do the work
 mkdir $8
-./partition_by_length_v2.pl $3  $8/middle_queries.fsa $8/outlier_queries.fsa $8/length_summary1.txt $1 $2
-blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > $8/middle_out_centroids90_blastn_fmt6.txt
-./classification_v3.pl $8/length_summary1.txt $8/middle_out_centroids90_blastn_fmt6.txt $8/$4 $5 $6
+
+partition_by_length_v2.pl $3  $8/middle_queries.fsa $8/outlier_queries.fsa $8/length_summary1.txt $1 $2
+blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart 
+send evalue bitscore" -max_target_seqs 1  > $8/middle_out_centroids90_blastn_fmt6.txt
+
+classification_v3.pl $8/length_summary1.txt $8/middle_out_centroids90_blastn_fmt6.txt $8/$4 $5 $6
+
 if [ -s $8/$4 ]; then 
     echo "Final output saved as $8/$4"
 else 
