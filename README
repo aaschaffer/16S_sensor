@@ -2,9 +2,58 @@ This is preliminary documentation for an early version of a script to recognize 
 Author: Alejandro Schaffer
 
 Current Location of files:
-/panfs/pan1.be-md.ncbi.nlm.nih.gov/dnaorg/2015.09/16S/16S_sensor
+/panfs/pan1/dnaorg/ssudetection/code/16S_sensor
 or
 https://github.com/aaschaffer/16S_sensor
+
+##############################################################################
+SETTING UP ENVIRONMENT VARIABLES
+
+Before you can run 16S_sensor_script you will need to update some of your
+command line variables. To do this, add the following three lines to
+your .bashrc file (if you use bash shell) or .cshrc file (if you use C
+shell or tcsh). The .bashrc or .cshrc file will be in your home
+directory. To determine what shell you use type 'echo $SHELL', if it
+returns '/bin/bash', then update your .bashrc file, if it returns
+'/bin/csh' or '/bin/tcsh' then update your .cshrc file.
+
+The 3 lines to add to your .bashrc file:
+-----------
+export SENSORDIR="/panfs/pan1/dnaorg/ssudetection/code/16S_sensor"
+export PATH="$SENSORDIR:$PATH";
+export BLASTDB="$SENSORDIR:$BLASTDB";
+-----------
+
+The 3 lines to add to your .cshrc file:
+-----------
+setenv SENSORDIR "/panfs/pan1/dnaorg/ssudetection/code/16S_sensor"
+setenv PATH "$SENSORDIR":"$PATH"
+setenv BLASTDB "$SENSORDIR":"$BLASTDB"
+-----------
+
+Then, after adding those 3 lines, execute this command:
+source ~/.bashrc
+OR
+source ~/.cshrc
+
+To check that your environment variables are properly set up do the
+following three commands:
+echo $SENSORDIR
+echo $PATH
+echo $BLASTDB
+
+The first command should return only:
+/panfs/pan1/dnaorg/ssudetection/code/16S_sensor
+
+And the other two echo commands should return potentially longer
+strings that begin with the same path:
+/panfs/pan1/dnaorg/ssudetection/code/16S_sensor
+
+If that is not the case, please email Eric Nawrocki
+(nawrocke@ncbi.nlm.nih.gov). If you do see the expected output, the
+following sample run should work.
+
+##############################################################################
 
 Sample run:
 ./16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40 1 sensor-out
@@ -47,8 +96,8 @@ centroids90.nin
 centroids90.nsq
 
 Programs used by the script:
-classification_v3.pl
-partition_by_length_v2.pl
+sensor_classification3.pl
+sensor_partition_by_length2.pl
 
 Sample input
 nucl_queries.fsa
@@ -85,3 +134,4 @@ In column 3, plus means same strand and minus means opposite strand, and mixed m
 In column 4, values > 1 might be evidence of a missassembly or gap in the query sequence.
 
 If column 2 has the value no, then the values in column 3 and column 4 will appear as NA (short, for not applicable).
+
