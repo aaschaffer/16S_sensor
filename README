@@ -2,7 +2,7 @@ This is preliminary documentation for an early version of a script to recognize 
 Authors: Alejandro Schaffer and Eric Nawrocki
 
 github: https://github.com/aaschaffer/16S_sensor.git
-Version: 0.03
+Version: 0.04
 ------------------
 
 Current Location of files:
@@ -60,7 +60,7 @@ following sample run should work.
 ##############################################################################
 
 Sample run:
-./16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40 1 sensor-out
+16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40 1 sensor-out
 
 The first argument is a lower bound on length.
 The second argument is an upper bound on length.
