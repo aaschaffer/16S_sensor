@@ -2,7 +2,7 @@ This is preliminary documentation for an early version of a script to recognize 
 Authors: Alejandro Schaffer and Eric Nawrocki
 
 github: https://github.com/aaschaffer/16S_sensor.git
-Version: 0.02
+Version: 0.03
 ------------------
 
 Current Location of files:
@@ -142,4 +142,4 @@ If column 2 has the value no, then the values in column 3 and column 4 will appe
 The blastn command used by 16S_sensor can be found in the 16S_sensor_script file.
 
 --------------
-Last updated: Wed May 24 13:46:53 2017
+Last updated: EPN, Wed May 24 15:08:36 2017
