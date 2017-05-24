@@ -1,6 +1,10 @@
 This is preliminary documentation for an early version of a script to recognize 16S RNA sequences.
 Author: Alejandro Schaffer
 
+github: https://github.com/aaschaffer/16S_sensor.git
+Version: 0.02
+------------------
+
 Current Location of files:
 /panfs/pan1.be-md.ncbi.nlm.nih.gov/dnaorg/2015.09/16S/16S_sensor
 or

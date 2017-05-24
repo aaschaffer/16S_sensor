@@ -1,3 +1,4 @@
+# version 0.02
 ./partition_by_length_v2.pl $3  middle_queries.fsa outlier_queries.fsa length_summary1.txt $1 $2
 blastn -db centroids90 -task blastn -query middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > middle_out_centroids9\
 0_blastn_fmt6.txt
