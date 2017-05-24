@@ -1,5 +1,32 @@
+#!/bin/bash
 # version 0.02
-./partition_by_length_v2.pl $3  middle_queries.fsa outlier_queries.fsa length_summary1.txt $1 $2
-blastn -db centroids90 -task blastn -query middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > middle_out_centroids9\
-0_blastn_fmt6.txt
-./classification_v3.pl length_summary1.txt middle_out_centroids90_blastn_fmt6.txt $4 $5 $6
+# next line (set -e) makes it so that this script exits with non-zero status if any of the commands within it
+# (e.g. the blastn command) fail with non-zero status.
+set -e 
+
+# make sure correct number of cmdline arguments were used, exit if not
+if [ "$#" -ne 8 ]; then
+  echo "Usage: $0 <min_length> <max_length> <seq_file> <output_file_name> <min_id_percentage> <max_Evalue> <nprocessors> <output_dir>" 
+  exit 1
+fi
+# if we get here, correct number of cmdline arguments were used
+# make sure the output directory does not already exist, if so exit 
+if [ -d $8 ]; then
+   echo "Output directory $8 already exists. Remove it and rerun."
+   exit 1
+fi
+# if we get here, output directory does not already exist
+# make the directory, then do the work
+mkdir $8
+
+sensor_partition_by_length.pl $3  $8/middle_queries.fsa $8/outlier_queries.fsa $8/length_summary1.txt $1 $2
+
+blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > $8/middle_out_centroids90_blastn_fmt6.txt
+
+sensor_classification.pl $8/length_summary1.txt $8/middle_out_centroids90_blastn_fmt6.txt $8/$4 $5 $6
+
+if [ -s $8/$4 ]; then 
+    echo "Final output saved as $8/$4"
+else 
+    echo "Failure, no output created."
+fi

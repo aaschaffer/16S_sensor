@@ -6,7 +6,7 @@
 # possible classifications are: yes, no, partial, too long, or too short
 # the separation of the too long an too short classes is done in an earlier
 # program and passed through this program
-# Usage: classification_v3.pl <length_summary file> <BLAST results file in tab-delimited format 6> <output> <identity threshold> <E-value threshold>
+# Usage: sensor_classification.pl <length_summary file> <BLAST results file in tab-delimited format 6> <output> <identity threshold> <E-value threshold>
 
 use strict;
 use warnings;
@@ -60,7 +60,7 @@ $output_strings[3] = "yes\t";
 $output_strings[4] = "partial\t";
 $output_strings[5] = "imperfect_match\t";
 
-my $usage = "classification_v2.pl <length_summary file> <BLAST results file in tab-delimited format 6> <output> <identity threshold> <Evalue threshold";
+my $usage = "sensor_classification.pl <length_summary file> <BLAST results file in tab-delimited format 6> <output> <identity threshold> <Evalue threshold";
 
 if (@ARGV != 5) {
 	print "The correct number of arguments is 5\n";
