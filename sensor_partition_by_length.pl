@@ -5,7 +5,7 @@
 # Code to partition a fasta file into two fasta files
 # depending on whether the length of the sequence is within a
 # prescribed range or not
-# Usage: partition_by_length.pl <input fasta file>  <output file in range> <output file out of range> <output_summary> <lower bound> <upper bound>
+# Usage: sensor_partition_by_length.pl <input fasta file>  <output file in range> <output file out of range> <output_summary> <lower bound> <upper bound>
 
 use strict;
 use warnings;
@@ -20,7 +20,7 @@ my $this_length; #length of one sequence
 my $lower_bound; #lower bound on lengths in the middle range
 my $upper_bound; #upper bound on lengths in the middle range
 my $query_name; #identifier for one query
- 
+my $line_ctr; #counter of lines in sequence file 
 
 my @length_array; #array of sequence lengths
 my $sequence_index; #index on sequences;
@@ -32,7 +32,7 @@ my $NO_MATCH = 0;
 my $FULL_MATCH = 1;
 my $PARTIAL = 2;
 
-my $usage = "partition_by_length.pl <input fasta file>  <output file in range> <output file out of range> <output_summary><lower bound> <upper bound>\n";
+my $usage = "sensor_partition_by_length.pl <input fasta file>  <output file in range> <output file out of range> <output_summary><lower bound> <upper bound>\n";
 
 $input_file = $ARGV[0];
 $middle_output_file = $ARGV[1];
@@ -54,14 +54,18 @@ open(OUTPUT_SUMMARY, ">$output_summary_file") or die "Cannot open 4 $output_summ
 
 $sequence_index  = 0;
 $total_length = 0;
+$line_ctr = 0;
 while(defined($nextline = <INPUT>)) {
     chomp($nextline);
+    $line_ctr++;
     if (($nextline =~m/^>/)) {
-	if ($total_length > 0) {
+#	if ($total_length > 0) { # EPN: previously this line checked that $total_length > 0, 
+#                                # but that meant that length 0 sequences had no output line in the OUTPUT_SUMMARY file, now they do
+      if($line_ctr > 1) { 
 	    $length_array[$sequence_index] = $total_length;
 	    $sequence_index++;
-	}
-	$total_length = 0;
+      }
+      $total_length = 0;
     }
     else {
 	$this_length = length($nextline);
