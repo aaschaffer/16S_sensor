@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=0.04
+VERSION=0.05
 # next line (set -e) makes it so that this script exits with non-zero status if any of the commands within it
 # (e.g. the blastn command) fail with non-zero status.
 set -e 
