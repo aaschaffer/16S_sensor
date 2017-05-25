@@ -1,0 +1,100 @@
+gi|373136409|gb|JQ297788.1|	yes	plus	1	89
+gi|364693428|gb|JN493277.1|	yes	plus	1	100
+gi|389531140|gb|JQ499125.1|	too short	NA	NA	NA
+gi|291564284|emb|FN557779.1|	too short	NA	NA	NA
+gi|207852156|gb|FJ196034.1|	yes	plus	1	98
+gi|590123440|gb|KF975876.1|	yes	plus	1	100
+gi|307714649|gb|HM483776.1|	yes	plus	1	100
+gi|322179631|gb|JF194226.1|	yes	plus	1	100
+gi|1008368789|gb|KU068338.1|	too short	NA	NA	NA
+gi|94966094|emb|AJ966165.1|	yes	plus	1	100
+gi|724140524|gb|KM338357.1|	yes	plus	1	99
+gi|861556443|gb|KR189372.1|	yes	plus	1	100
+gi|238404198|gb|GQ001914.1|	yes	plus	1	100
+gi|460683618|gb|JX802566.1|	too short	NA	NA	NA
+gi|460664798|gb|JX783746.1|	yes	plus	1	100
+gi|342031599|gb|JF596414.1|	yes	plus	1	99
+gi|338182863|gb|JF983371.1|	yes	plus	1	100
+gi|724112805|gb|KM310946.1|	yes	plus	1	99
+gi|169823138|gb|EU369119.1|	yes	plus	1	98
+gi|961672965|gb|KU031503.1|	yes	plus	1	100
+gi|1008336931|gb|KU002090.1|	yes	plus	1	100
+gi|937196404|gb|KT798038.1|	yes	plus	1	100
+gi|365792183|dbj|AB687691.1|	yes	plus	1	96
+gi|874530710|gb|KP904645.1|	too short	NA	NA	NA
+gi|290853470|gb|GU881067.1|	too short	NA	NA	NA
+gi|460608076|gb|JX727024.1|	too short	NA	NA	NA
+gi|364665620|gb|JN479101.1|	yes	plus	1	100
+gi|385269617|gb|JQ754305.1|	yes	plus	1	97
+gi|697231477|emb|LN550991.1|	yes	plus	1	95
+gi|794769343|gb|KP396994.1|	yes	plus	1	100
+gi|371796285|emb|FQ748502.1|	yes	minus	1	99
+gi|310446812|gb|HM937026.1|	too short	NA	NA	NA
+gi|330439225|gb|JF688139.1|	yes	plus	1	100
+gi|260070293|gb|GQ349023.1|	yes	plus	1	100
+gi|411112912|gb|JQ387243.2|	yes	plus	1	98
+gi|209868770|gb|FJ223362.1|	yes	plus	1	89
+gi|896684730|gb|KR067870.1|	yes	plus	1	98
+gi|460612770|gb|JX731718.1|	too short	NA	NA	NA
+gi|760257960|gb|KP157644.1|	yes	plus	1	99
+gi|359828576|gb|JN366633.1|	yes	plus	1	100
+gi|733165332|emb|LN680194.1|	yes	plus	1	100
+gi|324310136|gb|HQ284813.1|	yes	plus	1	89
+gi|371881414|emb|FQ718523.1|	yes	minus	1	98
+gi|1002672594|gb|KU336262.1|	too short	NA	NA	NA
+gi|930812318|gb|KT342506.1|	yes	plus	1	100
+gi|239837273|gb|FJ978708.1|	yes	plus	1	100
+gi|290823782|gb|GU851379.1|	too short	NA	NA	NA
+gi|874815734|gb|KP530932.1|	too short	NA	NA	NA
+gi|259597449|gb|GQ573189.1|	too short	NA	NA	NA
+gi|310322416|gb|HQ042917.1|	yes	plus	1	99
+gi|472439969|gb|KC431987.1|	yes	plus	1	100
+gi|597654662|gb|KF332491.1|	yes	plus	1	100
+gi|169127477|gb|EU504540.1|	yes	plus	1	94
+gi|399141067|gb|JQ265039.1|	yes	plus	1	99
+gi|1008395465|gb|KU259864.1|	too short	NA	NA	NA
+gi|364623403|gb|JN457176.1|	yes	plus	1	100
+gi|822094686|gb|KP676804.1|	yes	plus	1	100
+gi|310491324|gb|HM965538.1|	yes	plus	1	98
+gi|296955061|gb|HM261466.1|	yes	plus	1	100
+gi|772393501|gb|KP174592.1|	yes	plus	1	95
+gi|415446124|emb|HE607486.1|	yes	plus	1	99
+gi|358610070|gb|JN068762.1|	too short	NA	NA	NA
+gi|643422023|gb|KF101695.1|	yes	plus	1	100
+gi|345122069|gb|JN230035.1|	yes	plus	1	100
+gi|390124984|dbj|AB687766.1|	yes	plus	1	99
+gi|423292860|gb|JQ781467.1|	yes	plus	1	100
+gi|219553662|gb|FJ041781.1|	yes	plus	1	99
+gi|597651194|gb|KF329023.1|	yes	plus	1	99
+gi|5880408|gb|AF087056.1|	yes	plus	1	100
+gi|1008305649|gb|KU627465.1|	yes	plus	1	100
+gi|1174886190|ref|NZ_NBEX01000097.1|	yes	plus	1	89
+gi|238312723|gb|GQ076546.1|	yes	plus	1	100
+gi|157280224|gb|EF592774.1|	yes	plus	1	100
+gi|957095295|gb|KT999730.1|	yes	plus	1	99
+gi|371803127|emb|FQ698004.1|	too short	NA	NA	NA
+gi|290599144|gb|GU612550.1|	yes	plus	1	100
+gi|846546944|gb|KR327679.1|	imperfect_match	plus	1	99
+gi|283466864|emb|FN594667.1|	yes	plus	1	98
+gi|224355282|gb|FJ318163.1|	too short	NA	NA	NA
+gi|371865712|emb|FQ673731.1|	too short	NA	NA	NA
+gi|342044660|gb|JF609475.1|	yes	plus	1	100
+gi|460770310|gb|KC038981.1|	yes	plus	1	100
+gi|290741287|gb|GU545102.1|	yes	plus	1	100
+gi|296984217|gb|HM290622.1|	yes	plus	1	100
+gi|345465360|dbj|AB650811.1|	yes	plus	1	98
+gi|312964197|gb|HQ436446.1|	yes	plus	1	99
+gi|322202553|gb|JF217148.1|	yes	plus	1	99
+gi|844560693|gb|KR708535.1|	yes	plus	1	100
+gi|320152858|gb|GU234226.1|	yes	plus	1	100
+gi|285186390|gb|GU421844.1|	yes	plus	1	100
+gi|34304459|gb|AY329160.1|	yes	plus	1	100
+gi|285795992|gb|GU405974.1|	too short	NA	NA	NA
+gi|75709023|gb|DQ186747.1|	yes	plus	1	97
+gi|1127896411|emb|LN929598.1|	yes	plus	1	100
+gi|460769534|gb|KC038205.1|	yes	plus	1	100
+gi|285178191|gb|GU416527.1|	yes	plus	1	100
+gi|874815858|gb|KP531056.1|	too short	NA	NA	NA
+gi|297365488|gb|HM095364.1|	too short	NA	NA	NA
+gi|225337530|gb|FJ734430.1|	too short	NA	NA	NA
+gi|224550802|gb|FJ661698.1|	yes	plus	1	100

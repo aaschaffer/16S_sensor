@@ -2,7 +2,7 @@ This is preliminary documentation for an early version of a script to recognize 
 Authors: Alejandro Schaffer and Eric Nawrocki
 
 github: https://github.com/aaschaffer/16S_sensor.git
-Version: 0.04
+Version: 0.05
 ------------------
 
 Current Location of files:
@@ -49,8 +49,12 @@ echo $BLASTDB
 The first command should return only:
 /panfs/pan1/dnaorg/ssudetection/code/16S_sensor
 
-And the other two echo commands should return potentially longer
-strings that begin with the same path:
+The second echo commands should return a potentially longer
+string that begins with the same path:
+/panfs/pan1/dnaorg/ssudetection/code/16S_sensor
+
+And the third echo command should return a potentially larger string
+that includes (but not necessarily begins with) the same path: 
 /panfs/pan1/dnaorg/ssudetection/code/16S_sensor
 
 If that is not the case, please email Eric Nawrocki
@@ -60,7 +64,13 @@ following sample run should work.
 ##############################################################################
 
 Sample run:
-16S_sensor_script 400 2500 nucl_queries.fsa classification_out2.txt 80 1e-40 1 sensor-out
+Execute the following command:
+
+16S_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out
+
+You should see this output:
+Final output saved as sensor-out/class.txt [16S_sensor v0.05]
+
 
 The first argument is a lower bound on length.
 The second argument is an upper bound on length.
