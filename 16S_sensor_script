@@ -24,7 +24,7 @@ sensor_partition_by_length.pl $3  $8/middle_queries.fsa $8/outlier_queries.fsa $
 # blastn command for v0.1 -> v0.5
 #blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > $8/middle_out_centroids90_blastn_fmt6.txt
 # blastn command that is more consistent with GPIPE blastn used for 16S submission handling as of June 2017
-blastn -db centroids90 -task blastn -query middle_queries.fsa -penalty -3 -reward 2 -gapopen 5 -gapextend 2 -dust yes -soft_masking true -window_size 40 -word_size 11 -evalue 1  -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1 > $8/middle_out_centroids90_blastn_fmt6.txt
+blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -penalty -3 -reward 2 -gapopen 5 -gapextend 2 -dust yes -soft_masking true -window_size 40 -word_size 11 -evalue 1  -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1 > $8/middle_out_centroids90_blastn_fmt6.txt
 
 sensor_classification.pl $8/length_summary1.txt $8/middle_out_centroids90_blastn_fmt6.txt $8/$4 $5 $6
 
