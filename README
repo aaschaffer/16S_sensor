@@ -2,7 +2,7 @@ This is preliminary documentation for an early version of a script to recognize 
 Authors: Alejandro Schaffer and Eric Nawrocki
 
 github: https://github.com/aaschaffer/16S_sensor.git
-Version: 0.08
+Version: 0.09
 ------------------
 
 Current Location of files:
@@ -69,7 +69,7 @@ Execute the following command:
 16S_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out
 
 You should see this output:
-Final output saved as sensor-out/class.txt [16S_sensor v0.08]
+Final output saved as sensor-out/class.txt [16S_sensor v0.09]
 
 
 The first argument is a lower bound on length.
