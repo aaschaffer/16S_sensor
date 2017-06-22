@@ -23,6 +23,9 @@ my @query_lengths; #array of query lengths;
 my %query_indices; #hash mapping names to indices;
 my $float_coverage; #query coverage in the best alignment to a query as a number between 0 and 1
 my @int_coverage; #array of query coverages in the best alignment to a query as an integer between 0 and 100
+my $best_alignment_qstart; #query start of the best alignment
+my $best_alignment_qend; #query start of the best alignment
+my $alignment_contained; #is the span of this secondary alignment contained in the quey span of the best alignment for this query
 my $num_queries;
 my $query_index;
 my $nextline;
@@ -63,8 +66,8 @@ $output_strings[5] = "imperfect_match\t";
 my $usage = "sensor_classification.pl <length_summary file> <BLAST results file in tab-delimited format 6> <output> <identity threshold> <Evalue threshold";
 
 if (@ARGV != 5) {
-	print "The correct number of arguments is 5\n";
-	die $usage;
+  print "The correct number of arguments is 5\n";
+  die $usage;
 }
 
 $length_input_file = $ARGV[0];
@@ -77,13 +80,13 @@ open(LENGTH_INPUT, "<$length_input_file") or die "Cannot open 1 $length_input_fi
 
 $query_index  = 0;
 while(defined($nextline = <LENGTH_INPUT>)) {
-    chomp($nextline);
-    @fields = split /\t/, $nextline;
-    $query_names[$query_index] = $fields[0];
-    $query_classifications[$query_index] = $fields[1];
-    $query_lengths[$query_index] = $fields[2]; 
-    $query_indices{$fields[0]} = $query_index;
-    $query_index++;
+  chomp($nextline);
+  @fields = split /\t/, $nextline;
+  $query_names[$query_index] = $fields[0];
+  $query_classifications[$query_index] = $fields[1];
+  $query_lengths[$query_index] = $fields[2]; 
+  $query_indices{$fields[0]} = $query_index;
+  $query_index++;
 }
 $num_queries = $query_index;
 
@@ -97,66 +100,79 @@ open(OUTPUT, ">$output_file") or die "Cannot open 3 $output_file\n";
 
 
 while(defined($nextline = <BLAST_INPUT>)) {
-    chomp($nextline);
-    @fields = split /\t/, $nextline;
-    if (defined($query_indices{$fields[$QUERY_COLUMN]})) {
-	$this_index = $query_indices{$fields[$QUERY_COLUMN]};
-	$query_num_alignments_best_match[$this_index]++; 
-	if ((($fields[$E_COLUMN] == 0.0) ||
-	     ($fields[$E_COLUMN] < $match_E_threshold)) &&
-	    ($fields[$IDENTITY_COLUMN] > $identity_threshold)) {
-	    $query_classifications[$this_index] = $FULL_MATCH;
-	    $float_coverage = ($fields[$QUERY_END_COLUMN] - $fields[$QUERY_START_COLUMN])/$query_lengths[$this_index];
-	    $int_coverage[$this_index] = int((100 * $float_coverage)+0.5);
-#	    if (($fields[$QLENGTH_COLUMN] < $lower_length) ||
-#		($fields[$QLENGTH_COLUMN] > $upper_length)) {
-#		$query_classifications[$this_index] = $PARTIAL;
-#	    }
-	}
-	else {
-	    if (!($query_classifications[$this_index] eq $FULL_MATCH) &&
-		!($query_classifications[$this_index] eq $PARTIAL) && !($query_classifications[$this_index] eq $IMPERFECT)) {
-		$query_classifications[$this_index] = $IMPERFECT;
-		$float_coverage = ($fields[$QUERY_END_COLUMN] - $fields[$QUERY_START_COLUMN])/$query_lengths[$this_index];
-		$int_coverage[$this_index] = int((100 * $float_coverage)+0.5);
-	    }
-	}
-	if ($fields[$SUBJECT_START_COLUMN] < $fields[$SUBJECT_END_COLUMN]) {
-	    if ((!defined($query_strand_match[$this_index])) || ("plus" eq $query_strand_match[$this_index])) {
-		$query_strand_match[$this_index] = "plus";
-	    }
-	    else {
-		$query_strand_match[$this_index] = "mixed";
-	    }
-	}
-	else {
-	    if ((!defined($query_strand_match[$this_index])) || ("minus" eq $query_strand_match[$this_index])) {
-		$query_strand_match[$this_index] = "minus";
-	    }
-	    else {
-		$query_strand_match[$this_index] = "mixed";
-	    }
-	}
+  chomp($nextline);
+  @fields = split /\t/, $nextline;
+  if (defined($query_indices{$fields[$QUERY_COLUMN]})) {
+    $this_index = $query_indices{$fields[$QUERY_COLUMN]};
+    $alignment_contained = 0;
+    if (!defined($query_num_alignments_best_match[$this_index])) {
+      $best_alignment_qstart = $fields[$QUERY_START_COLUMN];
+      $best_alignment_qend = $fields[$QUERY_END_COLUMN];
     }
-    else {
-	printf "Cannot find index for query $fields[0]\n";
+    else { 
+          if (($best_alignment_qstart = $fields[$QUERY_START_COLUMN]) &&
+              ($best_alignment_qend = $fields[$QUERY_END_COLUMN])) {
+            $alignment_contained = 1;
+          }
     }
+    if (!$alignment_contained) {
+      $query_num_alignments_best_match[$this_index]++; 
+          if ((($fields[$E_COLUMN] == 0.0) ||
+                ($fields[$E_COLUMN] < $match_E_threshold)) &&
+              ($fields[$IDENTITY_COLUMN] > $identity_threshold)) {
+            $query_classifications[$this_index] = $FULL_MATCH;
+            $float_coverage = ($fields[$QUERY_END_COLUMN] - $fields[$QUERY_START_COLUMN])/$query_lengths[$this_index];
+            $int_coverage[$this_index] = int((100 * $float_coverage)+0.5);
+#    if (($fields[$QLENGTH_COLUMN] < $lower_length) ||
+#($fields[$QLENGTH_COLUMN] > $upper_length)) {
+#$query_classifications[$this_index] = $PARTIAL;
+#    }
+          }
+      else {
+        if (!($query_classifications[$this_index] eq $FULL_MATCH) &&
+            !($query_classifications[$this_index] eq $PARTIAL) && !($query_classifications[$this_index] eq $IMPERFECT)) {
+          $query_classifications[$this_index] = $IMPERFECT;
+          $float_coverage = ($fields[$QUERY_END_COLUMN] - $fields[$QUERY_START_COLUMN])/$query_lengths[$this_index];
+          $int_coverage[$this_index] = int((100 * $float_coverage)+0.5);
+        }
+      }
+      if ($fields[$SUBJECT_START_COLUMN] < $fields[$SUBJECT_END_COLUMN]) {
+        if ((!defined($query_strand_match[$this_index])) || ("plus" eq $query_strand_match[$this_index])) {
+          $query_strand_match[$this_index] = "plus";
+        }
+        else {
+          $query_strand_match[$this_index] = "mixed";
+        }
+      }
+      else {
+        if ((!defined($query_strand_match[$this_index])) || ("minus" eq $query_strand_match[$this_index])) {
+          $query_strand_match[$this_index] = "minus";
+        }
+        else {
+          $query_strand_match[$this_index] = "mixed";
+        }
+      }
+    }
+  }
+  else {
+    printf "Cannot find index for query $fields[0]\n";
+  }
 
 }
 
 for($query_index = 0; $query_index < $num_queries; $query_index++) {
-    print OUTPUT "$query_names[$query_index]";
-    print OUTPUT "\t";
-    print OUTPUT $output_strings[$query_classifications[$query_index]+2];
-    if ($query_classifications[$query_index] > 0) {
-	if (defined($int_coverage[$query_index])) { 
-	    print OUTPUT "$query_strand_match[$query_index]\t$query_num_alignments_best_match[$query_index]\t$int_coverage[$query_index]";
-	}
-	else {
-	    print OUTPUT "$query_strand_match[$query_index]\t$query_num_alignments_best_match[$query_index]\tNA";
-	}
+  print OUTPUT "$query_names[$query_index]";
+  print OUTPUT "\t";
+  print OUTPUT $output_strings[$query_classifications[$query_index]+2];
+  if ($query_classifications[$query_index] > 0) {
+    if (defined($int_coverage[$query_index])) { 
+      print OUTPUT "$query_strand_match[$query_index]\t$query_num_alignments_best_match[$query_index]\t$int_coverage[$query_index]";
     }
-    print OUTPUT "\n";
+    else {
+      print OUTPUT "$query_strand_match[$query_index]\t$query_num_alignments_best_match[$query_index]\tNA";
+    }
+  }
+  print OUTPUT "\n";
 }
 
 close(OUTPUT);
