@@ -5,8 +5,8 @@ VERSION=0.10
 set -e 
 
 # make sure correct number of cmdline arguments were used, exit if not
-if [ "$#" -ne 8 ]; then
-  echo "Usage: $0 <min_length> <max_length> <seq_file> <output_file_name> <min_id_percentage> <max_Evalue> <nprocessors> <output_dir>" 
+if [ "$#" -ne 9 ]; then
+  echo "Usage: $0 <min_length> <max_length> <seq_file> <output_file_name> <min_id_percentage> <max_Evalue> <nprocessors> <output_dir> <blastdb>" 
   exit 1
 fi
 # if we get here, correct number of cmdline arguments were used
@@ -22,16 +22,16 @@ mkdir $8
 sensor_partition_by_length.pl $3  $8/middle_queries.fsa $8/outlier_queries.fsa $8/length_summary1.txt $1 $2
 
 # blastn command for v0.1 -> v0.5
-#blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > $8/middle_out_centroids90_blastn_fmt6.txt
+#blastn -num_threads $7 -db $9 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > $8/middle_out_$9_blastn_fmt6.txt
 # blastn command that is more consistent with GPIPE blastn used for 16S submission handling as of June 2017
-blastn -num_threads $7 -db centroids90 -task blastn -query $8/middle_queries.fsa -penalty -3 -reward 2 -gapopen 5 -gapextend 2 -dust yes -soft_masking true -window_size 40 -word_size 18 -evalue 1  -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1 > $8/middle_out_centroids90_blastn_fmt6.txt
+blastn -num_threads $7 -db $9 -task blastn -query $8/middle_queries.fsa -penalty -3 -reward 2 -gapopen 5 -gapextend 2 -dust yes -soft_masking true -window_size 40 -word_size 11 -evalue 1  -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1 > $8/middle_out_$9_blastn_fmt6.txt
 
-sensor_classification.pl $8/length_summary1.txt $8/middle_out_centroids90_blastn_fmt6.txt $8/$4 $5 $6
+sensor_classification.pl $8/length_summary1.txt $8/middle_out_$9_blastn_fmt6.txt $8/$4 $5 $6
 
 if [ -s $8/$4 ]; then 
-    echo "Final output saved as $8/$4 [16S_sensor v$VERSION]"
+    echo "Final output saved as $8/$4 [rRNA_sensor v$VERSION]"
     exit 0
 else 
-    echo "Failure, no output created. [16S_sensor v$VERSION]"
+    echo "Failure, no output created. [rRNA_sensor v$VERSION]"
     exit 1
 fi
