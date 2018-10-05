@@ -2,7 +2,7 @@ This is preliminary documentation for an early version of a script to recognize 
 Authors: Alejandro Schaffer and Eric Nawrocki
 
 github: https://github.com/aaschaffer/16S_sensor.git
-Version: 0.10
+Version: 0.11
 ------------------
 
 Current Location of files:
@@ -13,7 +13,7 @@ https://github.com/aaschaffer/16S_sensor
 ##############################################################################
 SETTING UP ENVIRONMENT VARIABLES
 
-Before you can run 16S_sensor_script you will need to update some of your
+Before you can run rRNA_sensor_script you will need to update some of your
 command line variables. To do this, add the following three lines to
 your .bashrc file (if you use bash shell) or .cshrc file (if you use C
 shell or tcsh). The .bashrc or .cshrc file will be in your home
@@ -66,10 +66,10 @@ following sample run should work.
 Sample run:
 Execute the following command:
 
-16S_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out
+rRNA_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out 16S_centroids90
 
 You should see this output:
-Final output saved as sensor-out/class.txt [16S_sensor v0.10]
+Final output saved as sensor-out/class.txt [16S_sensor v0.11]
 
 
 The first argument is a lower bound on length.
@@ -82,6 +82,7 @@ The fifth argument is a lower bound on the identity percentage.
 The sixth argument is an upper bound of the E-value
 The seventh argument is the number of threads to use in running blastn.
 The eigth argument is the name of a directory to store output files.
+The ninth argument is the name of the BLAST DB.
 
 The two bounds on the right are applied in a logical AND fashion, so we look for
 matches that are above the identity percentage threshold and below the E-value threshold
@@ -117,7 +118,7 @@ Sample input
 nucl_queries.fsa
 
 The current script:
-16S_sensor_script
+rRNA_sensor_script
 
 The output has one row per query.
 Column 1 is the query identifier.
@@ -149,7 +150,7 @@ In column 4, values > 1 might be evidence of a missassembly or gap in the query 
 If column 2 has the value no, then the values in column 3 and column 4 will appear as NA (short, for not applicable).
 
 --------------
-The blastn command used by 16S_sensor can be found in the 16S_sensor_script file.
+The blastn command used by 16S_sensor can be found in the rRNA_sensor_script file.
 
 --------------
 Last updated: EPN, Wed May 24 15:08:36 2017
