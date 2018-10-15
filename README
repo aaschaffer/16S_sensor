@@ -163,5 +163,16 @@ If column 2 has the value no, then the values in column 3 and column 4 will appe
 --------------
 The blastn command used by rRNA_sensor can be found in the rRNA_sensor_script file.
 
+The makeblastdb command used to build the 16S and 18S blast databases
+was:
+
+makeblastdb -in 16S_centroids -parse_seqids -dbtype nucl
+
+makeblastdb -in 18S_centroids.1091 -parse_seqids -dbtype nucl
+
+When a file named 16S_centroids that is identical to 16S_centroids.fa
+existed and a file named 18S_centroids.1091 that is identical to
+18S_centroids.1091.fa.
+
 --------------
-Last updated: EPN, Wed May 24 15:08:36 2017
+Last updated: EPN, Mon Oct 15 16:07:43 2018
