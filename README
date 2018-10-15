@@ -1,14 +1,14 @@
 This is preliminary documentation for an early version of a script to recognize 16S RNA sequences.
 Authors: Alejandro Schaffer and Eric Nawrocki
 
-github: https://github.com/aaschaffer/16S_sensor.git
+github: https://github.com/aaschaffer/rRNA_sensor.git
 Version: 0.11
 ------------------
 
 Current Location of files:
-/panfs/pan1/dnaorg/ssudetection/code/16S_sensor
+/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor
 or
-https://github.com/aaschaffer/16S_sensor
+https://github.com/aaschaffer/rRNA_sensor
 
 ##############################################################################
 SETTING UP ENVIRONMENT VARIABLES
@@ -23,14 +23,14 @@ returns '/bin/bash', then update your .bashrc file, if it returns
 
 The 3 lines to add to your .bashrc file:
 -----------
-export SENSORDIR="/panfs/pan1/dnaorg/ssudetection/code/16S_sensor"
+export SENSORDIR="/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor"
 export PATH="$SENSORDIR:$PATH";
 export BLASTDB="$SENSORDIR:$BLASTDB";
 -----------
 
 The 3 lines to add to your .cshrc file:
 -----------
-setenv SENSORDIR "/panfs/pan1/dnaorg/ssudetection/code/16S_sensor"
+setenv SENSORDIR "/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor"
 setenv PATH "$SENSORDIR":"$PATH"
 setenv BLASTDB "$SENSORDIR":"$BLASTDB"
 -----------
@@ -47,15 +47,15 @@ echo $PATH
 echo $BLASTDB
 
 The first command should return only:
-/panfs/pan1/dnaorg/ssudetection/code/16S_sensor
+/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor
 
 The second echo commands should return a potentially longer
 string that begins with the same path:
-/panfs/pan1/dnaorg/ssudetection/code/16S_sensor
+/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor
 
 And the third echo command should return a potentially larger string
 that includes (but not necessarily begins with) the same path: 
-/panfs/pan1/dnaorg/ssudetection/code/16S_sensor
+/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor
 
 If that is not the case, please email Eric Nawrocki
 (nawrocke@ncbi.nlm.nih.gov). If you do see the expected output, the
@@ -66,11 +66,17 @@ following sample run should work.
 Sample run:
 Execute the following command:
 
-rRNA_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out 16S_centroids90
+16S sample run:
+rRNA_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out 16S_centroids
 
 You should see this output:
-Final output saved as sensor-out/class.txt [16S_sensor v0.11]
+Final output saved as sensor-out/class.txt [rRNA_sensor v0.11]
 
+18S sample run:
+rRNA_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.18S.fa class.txt 80 1e-40 1 sensor-out2 18S_centroids.1091
+
+You should see this output:
+Final output saved as sensor-out2/class.txt [rRNA_sensor v0.11]
 
 The first argument is a lower bound on length.
 The second argument is an upper bound on length.
@@ -105,10 +111,15 @@ Files needed:
 This file:
 README
 
-BLAST database:
-centroids90.nhr
-centroids90.nin
-centroids90.nsq
+16S BLAST database:
+16S_centroids.nhr
+16S_centroids.nin
+16S_centroids.nsq
+
+18S BLAST database:
+18S_centroids.1091.nhr
+18S_centroids.1091.nin
+18S_centroids.1091.nsq
 
 Programs used by the script:
 sensor_classification3.pl
@@ -150,7 +161,7 @@ In column 4, values > 1 might be evidence of a missassembly or gap in the query 
 If column 2 has the value no, then the values in column 3 and column 4 will appear as NA (short, for not applicable).
 
 --------------
-The blastn command used by 16S_sensor can be found in the rRNA_sensor_script file.
+The blastn command used by rRNA_sensor can be found in the rRNA_sensor_script file.
 
 --------------
 Last updated: EPN, Wed May 24 15:08:36 2017
