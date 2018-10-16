@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=0.11
+VERSION=0.12
 # next line (set -e) makes it so that this script exits with non-zero status if any of the commands within it
 # (e.g. the blastn command) fail with non-zero status.
 set -e 
@@ -29,9 +29,9 @@ blastn -num_threads $7 -db $9 -task blastn -query $8/middle_queries.fsa -penalty
 sensor_classification.pl $8/length_summary1.txt $8/middle_out_$9_blastn_fmt6.txt $8/$4 $5 $6
 
 if [ -s $8/$4 ]; then 
-    echo "Final output saved as $8/$4 [16S_sensor v$VERSION]"
+    echo "Final output saved as $8/$4 [rRNA_sensor v$VERSION]"
     exit 0
 else 
-    echo "Failure, no output created. [16S_sensor v$VERSION]"
+    echo "Failure, no output created. [rRNA_sensor v$VERSION]"
     exit 1
 fi
