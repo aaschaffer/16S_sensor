@@ -2,7 +2,7 @@ This is preliminary documentation for an early version of a script to recognize 
 Authors: Alejandro Schaffer and Eric Nawrocki
 
 github: https://github.com/aaschaffer/rRNA_sensor.git
-Version: 0.12
+Version: 0.13
 ------------------
 
 Current Location of files:
@@ -70,13 +70,13 @@ Execute the following command:
 rRNA_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out 16S_centroids
 
 You should see this output:
-Final output saved as sensor-out/class.txt [rRNA_sensor v0.12]
+Final output saved as sensor-out/class.txt [rRNA_sensor v0.13]
 
 18S sample run:
 rRNA_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.18S.fa class.txt 80 1e-40 1 sensor-out2 18S_centroids.1091
 
 You should see this output:
-Final output saved as sensor-out2/class.txt [rRNA_sensor v0.12]
+Final output saved as sensor-out2/class.txt [rRNA_sensor v0.13]
 
 The first argument is a lower bound on length.
 The second argument is an upper bound on length.
@@ -166,9 +166,9 @@ The blastn command used by rRNA_sensor can be found in the rRNA_sensor_script fi
 The makeblastdb command used to build the 16S and 18S blast databases
 was:
 
-makeblastdb -in 16S_centroids -parse_seqids -dbtype nucl
+makeblastdb -in 16S_centroids -dbtype nucl
 
-makeblastdb -in 18S_centroids.1091 -parse_seqids -dbtype nucl
+makeblastdb -in 18S_centroids.1091 -dbtype nucl
 
 When a file named 16S_centroids that is identical to 16S_centroids.fa
 existed and a file named 18S_centroids.1091 that is identical to
