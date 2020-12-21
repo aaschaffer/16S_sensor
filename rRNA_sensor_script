@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=0.13
+VERSION=0.14
 # next line (set -e) makes it so that this script exits with non-zero status if any of the commands within it
 # (e.g. the blastn command) fail with non-zero status.
 set -e 
@@ -10,6 +10,16 @@ then
       CURBLASTPATH="blastn"
 else
       CURBLASTPATH="$RIBOBLASTDIR/blastn"
+fi
+
+# set path to sensor dir if RRNASENSORDIR is set, else just trust it is in user's path
+if [ -z "$RRNASENSORDIR" ]
+then
+      CURPARTITIONSCRIPT="$RRNASENSORDIR/sensor_partition_by_length.pl"
+      CURCLASSIFICATIONSCRIPT="$RRNASENSORDIR/sensor_classification.pl"
+else
+      CURPARTITIONSCRIPT="sensor_partition_by_length.pl"
+      CURCLASSIFICATIONSCRIPT="sensor_classification.pl"
 fi
 
 # make sure correct number of cmdline arguments were used, exit if not
@@ -27,14 +37,14 @@ fi
 # make the directory, then do the work
 mkdir $8
 
-sensor_partition_by_length.pl $3  $8/middle_queries.fsa $8/outlier_queries.fsa $8/length_summary1.txt $1 $2
+$CURPARTITIONSCRIPT $3  $8/middle_queries.fsa $8/outlier_queries.fsa $8/length_summary1.txt $1 $2
 
 # blastn command for v0.1 -> v0.5
 #blastn -num_threads $7 -db $9 -task blastn -query $8/middle_queries.fsa -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1  > $8/middle_out_$9_blastn_fmt6.txt
 # blastn command that is more consistent with GPIPE blastn used for 16S submission handling as of June 2017
 $CURBLASTPATH -num_threads $7 -db $9 -task blastn -query $8/middle_queries.fsa -penalty -3 -reward 2 -gapopen 5 -gapextend 2 -dust yes -soft_masking true -window_size 40 -word_size 11 -evalue 1  -outfmt "6 qaccver sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -max_target_seqs 1 > $8/middle_out_$9_blastn_fmt6.txt
 
-sensor_classification.pl $8/length_summary1.txt $8/middle_out_$9_blastn_fmt6.txt $8/$4 $5 $6
+$CURCLASSIFICATIONSCRIPT $8/length_summary1.txt $8/middle_out_$9_blastn_fmt6.txt $8/$4 $5 $6
 
 if [ -s $8/$4 ]; then 
     echo "Final output saved as $8/$4 [rRNA_sensor v$VERSION]"
