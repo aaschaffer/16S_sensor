@@ -13,10 +13,10 @@ else
 fi
 
 # set path to sensor dir if SENSORDIR is set, else just trust it is in user's path
-if [ -z "$SENSORDIR" ]
+if [ -z "$RRNASENSORDIR" ]
 then
-      CURPARTITIONSCRIPT="$SENSORDIR/sensor_partition_by_length.pl"
-      CURCLASSIFICATIONSCRIPT="$SENSORDIR/sensor_classification.pl"
+      CURPARTITIONSCRIPT="$RRNASENSORDIR/sensor_partition_by_length.pl"
+      CURCLASSIFICATIONSCRIPT="$RRNASENSORDIR/sensor_classification.pl"
 else
       CURPARTITIONSCRIPT="sensor_partition_by_length.pl"
       CURCLASSIFICATIONSCRIPT="sensor_classification.pl"

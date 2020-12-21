@@ -2,7 +2,7 @@ This is preliminary documentation for an early version of a script to recognize 
 Authors: Alejandro Schaffer and Eric Nawrocki
 
 github: https://github.com/aaschaffer/rRNA_sensor.git
-Version: 0.13
+Version: 0.14 Dec 2020
 ------------------
 
 Current Location of files:
@@ -23,16 +23,16 @@ returns '/bin/bash', then update your .bashrc file, if it returns
 
 The 3 lines to add to your .bashrc file:
 -----------
-export SENSORDIR="/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor"
-export PATH="$SENSORDIR:$PATH";
-export BLASTDB="$SENSORDIR:$BLASTDB";
+export RRNASENSORDIR="/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor"
+export PATH="$RRNASENSORDIR:$PATH";
+export BLASTDB="$RRNASENSORDIR:$BLASTDB";
 -----------
 
 The 3 lines to add to your .cshrc file:
 -----------
-setenv SENSORDIR "/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor"
-setenv PATH "$SENSORDIR":"$PATH"
-setenv BLASTDB "$SENSORDIR":"$BLASTDB"
+setenv RRNASENSORDIR "/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor"
+setenv PATH "$RRNASENSORDIR":"$PATH"
+setenv BLASTDB "$RRNASENSORDIR":"$BLASTDB"
 -----------
 
 Then, after adding those 3 lines, execute this command:
@@ -42,7 +42,7 @@ source ~/.cshrc
 
 To check that your environment variables are properly set up do the
 following three commands:
-echo $SENSORDIR
+echo $RRNASENSORDIR
 echo $PATH
 echo $BLASTDB
 
@@ -62,21 +62,32 @@ If that is not the case, please email Eric Nawrocki
 following sample run should work.
 
 ##############################################################################
+BLAST REQUIREMENT
+
+rRNA_sensor requires blastn version 2.11.0+ or later. You'll need to install it
+and have 'blastn' in your PATH for rRNA_sensor_script to work.
+
+Alternatively, you can download and install Ribovore
+(https://github.com/ncbi/ribovore), which will install blast and
+rRNA_sensor automatically using the `install.sh` script here:
+https://raw.githubusercontent.com/ncbi/ribovore/master/install.sh
+
+##############################################################################
 
 Sample run:
 Execute the following command:
 
 16S sample run:
-rRNA_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out 16S_centroids
+rRNA_sensor_script 400 2500 $RRNASENSORDIR/test_data/r.100.ssu.16S.fa class.txt 80 1e-40 1 sensor-out 16S_centroids
 
 You should see this output:
-Final output saved as sensor-out/class.txt [rRNA_sensor v0.13]
+Final output saved as sensor-out/class.txt [rRNA_sensor v0.14]
 
 18S sample run:
-rRNA_sensor_script 400 2500 $SENSORDIR/test_data/r.100.ssu.18S.fa class.txt 80 1e-40 1 sensor-out2 18S_centroids.1091
+rRNA_sensor_script 400 2500 $RRNASENSORDIR/test_data/r.100.ssu.18S.fa class.txt 80 1e-40 1 sensor-out2 18S_centroids.1091
 
 You should see this output:
-Final output saved as sensor-out2/class.txt [rRNA_sensor v0.13]
+Final output saved as sensor-out2/class.txt [rRNA_sensor v0.14]
 
 The first argument is a lower bound on length.
 The second argument is an upper bound on length.
@@ -175,4 +186,4 @@ existed and a file named 18S_centroids.1091 that is identical to
 18S_centroids.1091.fa.
 
 --------------
-Last updated: EPN, Mon Oct 15 16:07:43 2018
+Last updated: EPN, Mon Dec 21 13:53:37 2020
