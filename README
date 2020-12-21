@@ -1,14 +1,16 @@
-This is preliminary documentation for an early version of a script to recognize 16S RNA sequences.
-Authors: Alejandro Schaffer and Eric Nawrocki
+rRNA_sensor: a script to recognize SSU rRNA sequences
+Authors: Alejandro Schaffer and Eric
+Nawrocki
 
 github: https://github.com/aaschaffer/rRNA_sensor.git
 Version: 0.14 Dec 2020
 ------------------
+README
 
-Current Location of files:
-/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor
-or
-https://github.com/aaschaffer/rRNA_sensor
+Outline of this file:
+SETTING UP ENVIRONMENT VARIABLES
+BLAST REQUIREMENT
+SAMPLE RUN
 
 ##############################################################################
 SETTING UP ENVIRONMENT VARIABLES
@@ -21,16 +23,18 @@ directory. To determine what shell you use type 'echo $SHELL', if it
 returns '/bin/bash', then update your .bashrc file, if it returns
 '/bin/csh' or '/bin/tcsh' then update your .cshrc file.
 
-The 3 lines to add to your .bashrc file:
+The 3 lines to add to your .bashrc file, ***but make sure that you
+replace PATH/TO/RRNA/SENSOR with the directory path to the directory
+created when you cloned the rRNA_sensor github repository.
 -----------
-export RRNASENSORDIR="/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor"
+export RRNASENSORDIR="PATH/TO/RRNA/SENSOR"
 export PATH="$RRNASENSORDIR:$PATH";
 export BLASTDB="$RRNASENSORDIR:$BLASTDB";
 -----------
 
 The 3 lines to add to your .cshrc file:
 -----------
-setenv RRNASENSORDIR "/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor"
+setenv RRNASENSORDIR "PATH/TO/RRNA/SENSOR"
 setenv PATH "$RRNASENSORDIR":"$PATH"
 setenv BLASTDB "$RRNASENSORDIR":"$BLASTDB"
 -----------
@@ -47,15 +51,15 @@ echo $PATH
 echo $BLASTDB
 
 The first command should return only:
-/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor
+/PATH/TO/RRNA/SENSOR
 
 The second echo commands should return a potentially longer
 string that begins with the same path:
-/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor
+/PATH/TO/RRNA/SENSOR
 
 And the third echo command should return a potentially larger string
 that includes (but not necessarily begins with) the same path: 
-/panfs/pan1/dnaorg/ssudetection/code/rRNA_sensor
+/PATH/TO/RRNA/SENSOR
 
 If that is not the case, please email Eric Nawrocki
 (nawrocke@ncbi.nlm.nih.gov). If you do see the expected output, the
@@ -73,8 +77,8 @@ rRNA_sensor automatically using the `install.sh` script here:
 https://raw.githubusercontent.com/ncbi/ribovore/master/install.sh
 
 ##############################################################################
+SAMPLE RUN
 
-Sample run:
 Execute the following command:
 
 16S sample run:
