@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=0.13
+VERSION=0.14
 # next line (set -e) makes it so that this script exits with non-zero status if any of the commands within it
 # (e.g. the blastn command) fail with non-zero status.
 set -e 
@@ -12,11 +12,11 @@ else
       CURBLASTPATH="$RIBOBLASTDIR/blastn"
 fi
 
-# set path to sensor dir if SENSORDIR is set, else just trust it is in user's path
-if [ -z "$SENSORDIR" ]
+# set path to sensor dir if RRNASENSORDIR is set, else just trust it is in user's path
+if [ -z "$RRNASENSORDIR" ]
 then
-      CURPARTITIONSCRIPT="$SENSORDIR/sensor_partition_by_length.pl"
-      CURCLASSIFICATIONSCRIPT="$SENSORDIR/sensor_classification.pl"
+      CURPARTITIONSCRIPT="$RRNASENSORDIR/sensor_partition_by_length.pl"
+      CURCLASSIFICATIONSCRIPT="$RRNASENSORDIR/sensor_classification.pl"
 else
       CURPARTITIONSCRIPT="sensor_partition_by_length.pl"
       CURCLASSIFICATIONSCRIPT="sensor_classification.pl"
