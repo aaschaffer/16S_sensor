@@ -12,7 +12,7 @@ else
       CURBLASTPATH="$RIBOBLASTDIR/blastn"
 fi
 
-# set path to sensor dir if SENSORDIR is set, else just trust it is in user's path
+# set path to sensor dir if RRNASENSORDIR is set, else just trust it is in user's path
 if [ -z "$RRNASENSORDIR" ]
 then
       CURPARTITIONSCRIPT="$RRNASENSORDIR/sensor_partition_by_length.pl"
